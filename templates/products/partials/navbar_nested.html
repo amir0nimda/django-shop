@@ -1,0 +1,5 @@
+<ul class="submenu dropdown-menu">
+    {% for child in item.children.all %}
+    <li><a class="dropdown-item" href="{% url 'product:category_list' child.slug  %}">{{child.title}}</a></li>
+    {% endfor %}
+</ul>

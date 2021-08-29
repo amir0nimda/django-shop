@@ -1,0 +1,27 @@
+{% extends 'registration/base.html'%}
+
+{%block title%}{% endblock %}
+{% block content %}
+    <h3>پروفایل</h3>
+      <div class="shadow p-3 mb-5 bg-light rounded container">
+        <div class="row">
+          <div class="col-6">
+            <p>نام</p>
+            <span>{{user.first_name}}</span>
+          </div>
+          <div class="col-6">
+            <p>نام خانوادگی</p>
+           <span> {{user.last_name}}</span>
+          </div>
+          <div class="col-6">
+            <p>ایمیل</p>
+            <span>{{user.email}}</span>
+          </div>
+
+          <div class="col-6">
+            <p>نام کاربری</p>
+            <span>{{user.username}}</span>
+          </div>
+        </div>
+    </div>
+{% endblock %}

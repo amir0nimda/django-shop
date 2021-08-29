@@ -1,0 +1,7 @@
+{% extends "products/list.html"%}
+{%block title%}نتیجه{% endblock %}
+{% block next_page_url %}?page={{ page_object.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% endblock %}
+{% block number_page_url %}?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% endblock %}
+{% block previous_page_url %}?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% endblock %}
+
+

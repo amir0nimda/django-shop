@@ -1,0 +1,65 @@
+{% load static %}
+{% load template_tags %}
+<html>
+<head>
+<title>{% block title%}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="{% static 'custome_css/profile.css' %}">
+    <style>
+        a{
+        text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+{% navbar %}
+  <div class="container-fluid" style="text-align: right;direction:rtl;margin-top:1px;margin-bottom:1px;">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 " style="background-color: gray;">
+            <div class="d-flex flex-column align-items-right align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <span class="fs-5 d-none d-sm-inline" style="margin-bottom: 20px;">منو</span>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-right align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="{% url 'product:home' %}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house fa-home fa"></i> <span class="ms-1 d-none d-sm-inline">خانه</span>
+                        </a>
+                    </li>
+                    <li>
+                      <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                          <i class="fs-4 bi-bootstrap fas fa-user"></i> <span class="ms-1 d-none d-sm-inline">اطلاعات کاربر</span></a>
+                      <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                          <li class="w-100">
+                              <a href="{% url 'account:profile' %}" class="nav-link px-0"> <span class="d-none d-sm-inline">پروفایل </span></a>
+                          </li>
+                          <li>
+                              <a href="{% url 'account:address'%}" class="nav-link px-0"> <span class="d-none d-sm-inline">آدرس</span> </a>
+                          </li>
+                          <li>
+                            <a href="{% url 'account:author_update'%}" class="nav-link px-0"> <span class="d-none d-sm-inline">تغییر پروفایل </span> </a>
+                          </li>
+
+                          <li>
+                            <a href="{% url 'account:address_update'%}" class="nav-link px-0"> <span class="d-none d-sm-inline">تغییر ادرس</span> </a>
+                          </li>
+
+                        </ul>
+                  </li>
+                    <li>
+                        <a href="{% url 'cart:cart_detail'%}" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table fas fa-shopping-cart"></i> <span class="ms-1 d-none d-sm-inline">سبد خرید</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col py-3">
+          {% block content %}
+          {% endblock %}
+        </div>
+    </div>
+    </div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

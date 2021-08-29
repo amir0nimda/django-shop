@@ -1,0 +1,94 @@
+{% extends 'base.html'%}
+{% load widget_tweaks %}
+<title>{% block title%}{% endblock %}</title>
+{% block content %}
+<div class="container" style="text-align: right;direction: rtl;">
+  <main>
+    <h2>سفارش محصول(ها)</h2>
+    <div class="row g-5">
+    <div class="col order-md-last  py-5">
+        <div class="shadow p-3 mb-5 bg-light rounded container">
+            <div class="row g-5">
+            <div class="col-6">
+                <p>نام</p>
+                <span>{{user.first_name}}</span>
+            </div>
+            <div class="col-6">
+                <p>نام خانوادگی</p>
+            <span> {{user.last_name}}</span>
+            </div>
+            <div class="col-6">
+                <p>ایمیل</p>
+                <span>{{user.email}}</span>
+            </div>
+    
+            <div class="col-6">
+                <p>نام کاربری</p>
+                <span>{{user.username}}</span>
+            </div>
+            {% with address=user.address %}
+            <div class="col-6">
+              <p>ادرس و نشانی محل</p>
+              <span>{{address.address}}</span>
+            </div>
+            <div class="col-6">
+              <p>استان</p>
+              <span>{{address.state}}</span>
+            </div>
+            
+            <div class="col-6">
+              <p>شهر</p>
+              <span>{{address.city}}</span>
+            </div>
+
+            <div class="col-6">
+              <p>پلاک </p>
+              <span>{{address.plaque}}</span>
+            </div>
+
+            <div class="col-6">
+              <p>شماره تلفن</p>
+              <span>{{address.phone_number}}</span>
+            </div>
+            {% endwith %}
+            </div>
+            <br>
+            <a href="{%url 'account:address_update' %}"><i class="fas fa-edit"> ویرایش اطلاعات  </i></a>
+        </div>
+    </div>
+    <div class="col-3 py-5">
+        <div class="shadow p-3 mb-5 bg-light rounded container">
+            <div>
+                <h4>محصول(ها)</h4>
+                {% for item in cart %}
+                  {% with product=item.product %}
+                    <p>{{product.title}}</p>
+                    قیمت: <span>تومان{{product.price}}</span>
+                  {% endwith %}
+                {% endfor %}
+            </div>
+            <div>
+                <h4>تعداد کل محصول</h4>
+                <span>{{cart|length}}</span>
+            </div>
+            <div>
+                <h4>کل قیمت</h4>
+                <span>{{cart.get_total_price}}</span>
+            </div>
+            {% if cart.coupon %}
+              <div>
+                <h4>کل قیمت(تخفیف)</h4>
+                <span>{{cart.get_total_price_after_discount}}</span>
+              </div>
+          {% endif %}
+          <form action="{% url 'orders:order_create'%}" method="POST">
+            {% csrf_token %}
+            {{form}}  
+            <div class="column"><button type="submit" class="btn btn-success" href="{% url 'orders:order_create'%}">ثبت و خرید نهایی</button></div>
+          </form>
+        </div>
+    </div>
+</div>
+</div>
+</main>
+{% endblock %}

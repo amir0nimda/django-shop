@@ -1,0 +1,6 @@
+{% extends "products/list.html"%}
+{%block title%}لیست کالاها{% endblock %}
+
+{% block next_page_url %}?page={{ page_object.previous_page_number }}{% endblock %}
+{% block number_page_url %}?page={{ i }}{% endblock %}
+{% block previous_page_url %}?page={{ page_obj.next_page_number }}{% endblock %}

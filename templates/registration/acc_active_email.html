@@ -1,0 +1,6 @@
+{% autoescape off %}
+{{ user.username }},سلام
+لطفا برای تایید حساب کاربری خود بر روی لینک زیر کلیک نمایید
+http://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}
+اگر فکر میکنید این ایمیل برای شما نیست آن را نادیده بگیرید
+{% endautoescape %}

@@ -1,0 +1,54 @@
+{% extends 'registration/base.html'%}
+{% load widget_tweaks %}
+<title>{% block title%}{% endblock %}</title>
+{% block content %}
+{% if messages %}
+<ul style="text-align: right;direction:rtl">
+    {% for message in messages %}
+    <li style="color: green; font-size:20px"  {% if message.tags %} class=" {{ message.tags }} "{% endif %}> {{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="container" style="text-align: right;direction: rtl;">
+  <main>
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-4 order-md-last">
+      </div>
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">ادرس </h4>
+        <form class="needs-validation" novalidate method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="id_address" class="form-label">آدرس</label>
+            {{form.address|add_class:'form-control'}}
+          </div>
+          <div class="mb-3">
+            <label for="id_address" class="form-label">استان</label>
+            {{form.state|add_class:'form-control'}}
+          </div>
+          <div class="mb-3">
+            <label for="id_address" class="form-label">شهر</label>
+            {{form.city|add_class:'form-control'}}
+          </div>
+          <div class="mb-3">
+            <label for="id_post_code" class="form-label">کد پستی</label>
+            {{form.post_code|add_class:'form-control'}}
+          </div>
+          <div class="mb-3">
+            <label for="id_pluque" class="form-label">پلاک</label>
+            {{form.plaque|add_class:'form-control'}}
+          </div>
+          <div class="mb-3">
+            <label for="id_unit" class="form-label">واحد</label>
+            {{form.unit|add_class:'form-control'}}
+          </div>
+          <div class="mb-3">
+            <label for="id_phone_number" class="form-label">شماره تلفن</label>
+            {{form.phone_number|add_class:'form-control'}}
+          </div>
+          <button class="w-100 btn btn-primary btn-lg" type="submit"> تغییر اطلاعات </button>
+        </form>
+      </div>
+    </div>
+  </main>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block title%}سبد خرید{% endblock %}
+{% block content %}
+<div class="container padding-bottom-3x mb-1">
+    <!-- Shopping Cart-->
+    <div class="table-responsive shopping-cart" style="margin-top: 50px;margin-bottom:30px;">
+        <table class="table" style="margin-top: 30px;text-align:right;direction:rtl;">
+            <thead>
+                <tr>
+                    <th>نام محصول</th>
+                    <th class="text-center">تعداد</th>
+                    <th class="text-center">رنگ </th>
+                    <th class="text-center">قیمت </th>
+                    <th class="text-center">قیمت کل</th>
+                    <th class="text-center">حذف  </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                    {% with product=item.product %}
+                        <tr>
+                            <td>
+                                <div class="product-item">
+                                    <a class="product-thumb" href="{% url 'product:product_detail' product.slug %}"><img src="{{product.thumbnail.url}}" alt="Product"></a>
+                                    <div class="product-info" style="margin-bottom : 5px;">
+                                        <h4 class="product-title">{{ product.title }}</a></h4>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="count-input">
+                                <form action="{% url "cart:cart_add" product.id %}" method="POST">
+                                    {% csrf_token%}
+                                    {{ item.update_quantity_form.quantity|add_class:'form-control' }}
+                                    {{ item.update_quantity_form.override }}
+                                    <input type="text" name="color" value="{{item.color}}" hidden required="" id="id_color">
+
+                                    <br>
+                                    <input type="submit" class="btn btn-primary" value="اپدیت">
+                                </form>
+                                </div>
+                            </td>
+                            <td class="text-center text-lg text-medium">{{item.color}}</td>
+                            <td class="text-center text-lg text-medium">{{item.price}}</td>
+                            <td class="text-center text-lg text-medium">{{item.total_price}}</td>
+
+                            <td class="text-center">
+                                <form action="{% url 'cart:cart_delete' product.id %}" method="POST" >
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">حذف</button>
+                                </form>
+                            </tr>
+                    {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="shopping-cart-footer">
+            {% with total_items=cart|length %}
+                {% if total_items > 0 %}
+                    {% if cart.coupon %}
+                        <div class="column text-lg">قیمت کل محصولات(با تخفیف): <span class="text-medium">{{ cart.get_total_price_after_discount }}تومان</span></div>                    
+                    {% endif %}
+                    <div class="column text-lg">قیمت کل محصولات: <span class="text-medium">{{ cart.get_total_price }}تومان</span></div>                    
+                    <div class="column text-lg">تعداد محصول شما:<span class="text-medium">{{ total_items }}</span></div>     
+                {% else %}
+                <div class="column text-lg"><span class="text-medium"> شما هیچ محصولی ندارید</span></div>     
+                {% endif %} 
+            {% endwith %}
+    </div>
+    {% if cart %}
+    <div class="shopping-cart-footer">
+        <div class="column">
+            <form class="coupon-form" method="POST" action="{% url 'coupon:coupon_apply' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="input-group"> {{coupon_apply_form.code|add_class:'form-control'}} <span class="input-group-append"> <button type="submit" class="btn btn-primary btn-apply coupon">وارد</button> </span> </div>
+                </div>
+            </form>
+        </div>
+        <div class="column">
+
+            {% if request.user.is_authenticated and request.user.is_empty_field %}
+            <div class="column"><a class="btn btn-success" href="{% url 'orders:order_create'%}">ادامه فرایند خرید</a></div>
+            {% elif not request.user.is_authenticated %}
+            <div class="column"><a class="btn btn-success" href="{% url 'login'%}">ورود به حساب کاربری</a></div>
+            {% else %}
+            <div class="column"><a class="btn btn-success" href="{% url 'account:update_profile'%}">ادامه فرایند خرید</a></div>
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}
+

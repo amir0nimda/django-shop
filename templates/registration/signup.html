@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}ورود {% endblock %}
+{% block content %}
+<section class="vh-100">
+	<div class="container-fluid h-custom">
+	  <div class="row d-flex justify-content-center align-items-center h-100">
+		{% if form.none_field_errors %}
+			<div class='error'>
+				{% for error in form.none_field_errors %}
+					<span>یوزرنیم و پسورد نامعتبر است لطفا دوباره امتحان کنید</span>
+				{% endfor %} 
+			</div>
+		{% endif %}
+		<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1" style="text-align: right;direction:rtl;">
+		<h3>ساخت حساب</h3>
+		<form action="{% url 'account:signup' %}" method="POST">
+				{% csrf_token %}
+			<div class="form-outline mb-4">
+				{% if form.username.errors %}
+					<div class="error">
+						{% for error in form.non_field_errors %}
+							<span>{{error}}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+				<label class="form-label" for="id_username">یوزنیم</label>
+				{{form.username|add_class:'form-control form-control-lg'}}
+			</div>
+
+			<div class="form-outline mb-4">
+				<label class="form-label" for="id_email">ایمیل</label>
+				{{form.email|add_class:'form-control form-control-lg'}}
+			</div>
+  
+			<div class="form-outline mb-3">
+				<label class="form-label" for="id_password">رمز</label>
+				{{form.password1|add_class:'form-control form-control-lg'}}
+			</div>
+
+			<div class="form-outline mb-3">
+				<label class="form-label" for="id_password">تکرار رمز</label>
+				{{form.password2|add_class:'form-control form-control-lg'}}
+			</div>
+  
+			<div class="text-right text-lg-start mt-4 pt-2 d-flex justify-content-center">
+				<button type="submit" class="btn btn-primary btn-lg"
+				  style="padding-left: 2.5rem; padding-right: 2.5rem;">ساخت حساب کاربری</button>
+			  </div>
+
+		</form>
+		</div>
+	  </div>
+	</div>
+  </section>
+{% endblock %}

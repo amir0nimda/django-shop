@@ -1,0 +1,91 @@
+{% extends "base.html"%}
+{% load widget_tweaks %}
+<title>{%block title%}{% endblock %}</title>
+
+
+{% block content %}
+<div class="container mt-5 mb-5" style="text-align: right;direction:rtl">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-6 border-end">
+                <div class="d-flex flex-column justify-content-center">
+                    <div class="main_image"> <img src="{{product.thumbnail.url}}" id="main_product_image" width="350"> </div>
+                    {% if product.product_image %}
+                    <div class="thumbnail_images">
+                        <ul id="thumbnail">
+                            <li><img onclick="changeImage(this)" src="{{product.thumbnail.url}}" width="70"></li>
+                            {% for image in product.product_image.all %}
+                            <li><img onclick="changeImage(this)" src="{{image.image.url}}" width="70"></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 right-side">
+                    <div class="ratings d-flex flex-row align-items-center">
+                        <div class="d-flex flex-row"> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bx-star'></i> </div> <span>441 بازدید</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>{{product.title}}</h3> <span class="heart"><i class='bx bx-heart'></i></span>
+                    </div>
+                    <div class="mt-2 pr-3 content">
+                        <details>
+                            <summary>ویژگی های کالا</summary>
+                            {{product.spec|linebreaks}}
+                        </details>
+                    </div>
+                    <h3>{{product.price}}تومان</h3>
+                    <form action="{% url 'cart:cart_add' product.id %}" method="POST">
+                        {% csrf_token %}
+                                <label for="id_color">رنگ:</label> 
+                                <select class='form-select' name="color" id="id_color">
+                                {% for color in product.color.all %}
+                                    <option value="{{color}}">{{color}}</option>
+                                {%endfor %}                    
+                                </select>
+                        <div class="mt-5">
+                                <label for="id_quantity">تعداد محصول:</label>
+                                {{ form.quantity |add_class:"form-select"}}
+                                {{ form.override }}
+                        </div>
+                        <div class="buttons d-flex flex-row mt-5 gap-3"><button class="btn-lg btn-dark">اضافه به سبد خرید</button> </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-11 border-top p-3">
+                <p>مشخصات محصول</p>
+                <p>{{product.description|escape|linebreaks}}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid mt-5 mb-5" style="text-align: right;direction:rtl;">
+        <div class="col-md-9">
+            <div class="row g-2">
+              {% for product in related_products %}
+                {% if product.status == "p" or product.status == "f" %}
+                <div class="col-md-3">
+                  <div class="product py-4">
+                      <div class="text-center"> <img src="{{product.thumbnail.url}}" width="200"> </div>
+                      <div class="about text-center">
+                          <a href="{% url 'product:product_detail' product.slug%}"><h5>{{product.title|truncatewords:10}}</h5></a> <span>{{product.price}}تومان</span>
+                      </div>
+                  </div>
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+      </div>
+      </div>
+
+
+        </div>
+    </div>  
+</div>
+{% endblock %}
+

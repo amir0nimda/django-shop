@@ -1,0 +1,41 @@
+{% extends 'registration/base.html'%}
+{% load widget_tweaks %}
+<title>{% block title%}{% endblock %}</title>
+{% block content %}
+<div class="col py-3">
+  <h3>پروفایل</h3>
+    <div class="shadow p-3 mb-5 bg-light rounded container">
+      <div class="row">
+        <div class="col-6">
+          <p>ادرس</p>
+          <span>{{address.address}}</span>
+        </div>
+        <div class="col-6">
+          <p>استان</p>
+         <span> {{address.state}}</span>
+        </div>
+        <div class="col-6">
+          <p>شهر</p>
+          <span>{{address.city}}</span>
+        </div>
+
+        <div class="col-6">
+          <p>کد پستی</p>
+          <span>{{address.post_code}}</span>
+        </div>
+
+
+        <div class="col-6">
+          <p>پلاک</p>
+          <span>{{address.plaque}}</span>
+        </div>
+
+        <div class="col-6">
+          <p>واحد</p>
+          <span>{{address.unit}}</span>
+        </div>
+
+      </div>
+  </div>
+</div>
+{% endblock %}

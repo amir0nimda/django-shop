@@ -1,0 +1,41 @@
+span.c-circle-variant__shape {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 50px;
+    height: 32px;
+    border: 1px solid #d8d8d8;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.form-select {
+    display: inline;
+    width: 60px;
+    padding: .375rem 2.25rem .375rem .75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: gray;
+    background-color: #fff;
+    background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e);
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;  
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+} 
+
+
+.col-2{
+    height: 375px;
+}
+
+
+a{
+    text-decoration: none;
+}
