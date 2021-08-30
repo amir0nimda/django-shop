@@ -87,7 +87,7 @@
             {% elif not request.user.is_authenticated %}
             <div class="column"><a class="btn btn-success" href="{% url 'login'%}">ورود به حساب کاربری</a></div>
             {% else %}
-            <div class="column"><a class="btn btn-success" href="{% url 'account:update_profile'%}">ادامه فرایند خرید</a></div>
+            <div class="column"><a class="btn btn-success" href="{% url 'account:address_update'%}">ادامه فرایند خرید</a></div>
             {% endif %}
         {% endif %}
         </div>

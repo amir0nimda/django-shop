@@ -37,20 +37,20 @@ class Order(models.Model):
             return "اپدیت نشده است"
     update_time.short_description='زمان اپدیت'
 
-    def get_total_cost(self):
-        total_cost = sum(item_product.get_cost() for item_product in self.item.all())
-        return total_cost - total_cost * \
-            (self.discount / float(100))
-    get_total_cost.short_description='قیمت کل '
+    # def get_total_cost(self):
+    #     total_cost = sum(item_product.get_cost() for item_product in self.item.all())
+    #     return total_cost - total_cost * \
+    #         (self.discount / float(100))
+    # get_total_cost.short_description='قیمت کل '
 
 
 class OrderItem(models.Model):
     order=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='item',verbose_name='سفارش')
     product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name="product_item",verbose_name='محصول')
     price=models.FloatField(verbose_name='قیمت')
+    total_price=models.FloatField(verbose_name='قیمت کل',default=1)
     color=models.CharField(max_length=50,verbose_name='رنگ',default='سفید')
     quantity=models.IntegerField(default=1,verbose_name='تعداد')
-    total_price=models.FloatField(verbose_name='قیمت کل',default=1)
 
     class Meta:
         verbose_name='کالا'

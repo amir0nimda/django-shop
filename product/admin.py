@@ -16,7 +16,7 @@ class ImageProductAdmin(admin.StackedInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display=['title','slug','product_number','status']
+    list_display=['title','slug','status']
     list_filter=['slug','category',]
     search_fields=['category','spec','slug']
     ordering=['-updated']

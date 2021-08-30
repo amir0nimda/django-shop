@@ -68,7 +68,6 @@ class Product(models.Model):
     description=models.TextField(verbose_name='توضیح درباره محصول', blank=True,null=True)
     price=models.FloatField(verbose_name='قیمت کالا')
     thumbnail=models.ImageField(upload_to='image',verbose_name='عکس',blank=False,null=False)
-    product_number=models.IntegerField(verbose_name='تعداد کالا')
     created=models.DateTimeField(auto_now_add=True,verbose_name='زمان ساخت')
     updated=models.DateField(auto_now=True,verbose_name='زمان تغییر')
     status=models.CharField(max_length=1,choices=STATUS_CHOICE,verbose_name='وضعیت')
@@ -76,6 +75,7 @@ class Product(models.Model):
     
     def __str__(self):
         return self.title
+        
     def get_absolute_url(self):
         return reverse('product:product_detail',
                         args=[self.slug])

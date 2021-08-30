@@ -23,7 +23,7 @@ def order_create(request):
         cart=Cart(request)
         get_user=User.objects.get(username=request.user)
         order=Order.objects.filter(user=get_user.id,status='unpaid')
-        if request.method=="POST":
+        if request.method=="POST": 
             if order.exists():
                 get_order=order[0]
                 if cart.coupon:
