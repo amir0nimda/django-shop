@@ -50,6 +50,8 @@ class OrderItem(models.Model):
     price=models.FloatField(verbose_name='قیمت')
     color=models.CharField(max_length=50,verbose_name='رنگ',default='سفید')
     quantity=models.IntegerField(default=1,verbose_name='تعداد')
+    total_price=models.FloatField(verbose_name='قیمت کل',default=1)
+
     class Meta:
         verbose_name='کالا'
         verbose_name_plural='کالاها'
@@ -60,3 +62,7 @@ class OrderItem(models.Model):
     def get_cost(self):
         return self.price * self.quantity
     get_cost.short_description='کل قیمت'
+
+    def save(self,*args,**kwargs):
+        self.total_price=self.get_cost()
+        super(OrderItem, self).save(*args, **kwargs)

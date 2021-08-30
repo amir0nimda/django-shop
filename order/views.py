@@ -1,12 +1,9 @@
-from django.http.response import HttpResponse
-from product.models import Product
 from django.shortcuts import redirect, render
 from cart.cart import Cart
 from .forms import OrderCreateForm
 from .models import OrderItem,Order
-from account.models import User,Address
+from account.models import User
 import functools
-from product.models import Product
 
 
 def premision_decorator(func):
@@ -35,7 +32,12 @@ def order_create(request):
                     get_order.save()
                     del request.session["coupon_id"]
                 for item in cart:
-                    OrderItem.objects.create(order=get_order,product=item['product'],price=item['price'],quantity=item['quantity'],color=item['color'])
+                    OrderItem.objects.create(order=get_order,
+                    product=item['product'],
+                    price=item['price'],
+                    quantity=item['quantity'],
+                    color=item['color'],
+                    )
                 cart.clear()
                 return redirect('product:home')                   
             else:
@@ -50,7 +52,12 @@ def order_create(request):
                 if form_order.is_valid():
                     create.save()
                     for item in cart:
-                        OrderItem.objects.create(order=create,product=item['product'],price=item['price'],quantity=item['quantity'],color=item['color'])
+                        OrderItem.objects.create(order=create,
+                        product=item['product'],
+                        price=item['price'],
+                        quantity=item['quantity'],
+                        color=item['color'],
+                        )
                     cart.clear()
                     return redirect('product:home')
         else:
