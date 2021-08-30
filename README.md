@@ -5,9 +5,13 @@ Django-ecommerce is an open-source ecommerce platform built on the Django Web Fr
 Features Included
 
 Search Functionality
+
 Shopping Cart
+
 Order Management
+
 Coupon system
+
 And ...
 
 Installation
