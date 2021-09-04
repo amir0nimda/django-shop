@@ -2,7 +2,7 @@
 
 ## Description
 
-Django-ecommerce is an open-source ecommerce platform built on the Django Web Framework.
+Django-ecommerce built on the Django Web Framework.
 
 ## Getting Started
 
