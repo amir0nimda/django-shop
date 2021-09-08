@@ -6,19 +6,8 @@
 	<div class="container-fluid h-custom">
 	  <div class="row d-flex justify-content-center align-items-center h-100 " style="text-align: right;direction:rtl">
 		<div class="col-md-8 col-lg-6 col-xl-4 ">
-		  <form method="POST" action="{% url 'login' %}">	
+		  <form method="POST">	
 			{% csrf_token %}
-			<div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-			  <p class="lead fw-normal mb-0 me-3">ساخت حساب کاربری با </p>
-			  <button type="button" class="btn btn-primary btn-floating mx-1">
-				<i class="fab fa-google fa-lg"></i>
-			  </button>
-			</div>
-  
-			<div class="divider d-flex align-items-center my-4">
-			  <p class="text-center fw-bold mx-3 mb-0">یا</p>
-			</div>
-  
 			<!-- username input -->
 			<div class="form-outline mb-4">
 			<label class="form-label" for="id_username">یوزنیم</label>
@@ -47,7 +36,7 @@
 				style="padding-left: 2.5rem; padding-right: 2.5rem;">ورود</button>
 			</div>
 			
-			<span class="small fw-bold mt-2 pt-1 mb-0">حساب کاربری ندارید؟<a href="{% url 'account:signup' %}"
+			<span class="small fw-bold mt-2 pt-1 mb-0">حساب کاربری ندارید؟<a href="{% url 'account:register' %}"
 				class="link-danger">ساخت حساب </a></span>
 		  </form>
 		</div>

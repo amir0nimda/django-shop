@@ -14,7 +14,7 @@
 		{% endif %}
 		<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1" style="text-align: right;direction:rtl;">
 		<h3>ساخت حساب</h3>
-		<form action="{% url 'account:signup' %}" method="POST">
+		<form action="{% url 'account:register' %}" method="POST">
 				{% csrf_token %}
 			<div class="form-outline mb-4">
 				{% if form.username.errors %}

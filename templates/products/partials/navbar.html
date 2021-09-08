@@ -20,9 +20,9 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         {% if request.user.is_authenticated %}
                           <li><a class="dropdown-item" href="{% url 'account:profile' %}">پروفایل</a></li>
-                          <li><a class="dropdown-item" href="{% url 'logout' %}">خروج</a></li>
+                          <li><a class="dropdown-item" href="{% url 'logout' %}?next={{request.path}}">خروج</a></li>
                         {% else %}
-                          <li><a class="dropdown-item" href="{% url 'login' %}">ورود</a></li>
+                          <li><a class="dropdown-item" href="{% url 'login' %}?next={{request.path}}">ورود</a></li>
                         {% endif %}
                         </ul>
                       </div>
