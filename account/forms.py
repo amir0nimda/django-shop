@@ -5,7 +5,7 @@ from .models import User,Address
 from django.contrib.auth.forms import UserCreationForm
 
 
-class SignUpForm(UserCreationForm):
+class Register(UserCreationForm):
     email=forms.EmailField(max_length=200)
     class Meta:
         model=User

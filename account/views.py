@@ -10,15 +10,15 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import AddressForm, UserForm,SignUpForm
+from .forms import AddressForm, UserForm,Register
 from django.contrib.auth import get_user_model
 from django.contrib.auth import login,logout
 UserModel = get_user_model()    
 
 class Register(CreateView):
-    form_class = SignUpForm
+    form_class = Register
     template_name = 'registration/register.html'
 
     def form_valid(self, form):
@@ -74,7 +74,6 @@ class UserAddress(LoginRequiredMixin,DetailView):
         return Address.objects.get(pk=self.request.user.address.pk)
 
 class UpdateProfile(LoginRequiredMixin,UpdateView):
-    model=User
     form_class=UserForm
     template_name='registration/update_profile.html'
     login_url = 'login'
@@ -83,10 +82,16 @@ class UpdateProfile(LoginRequiredMixin,UpdateView):
         return get_object_or_404(User,pk=self.request.user.pk)
 
 class UpdateAddress(LoginRequiredMixin,UpdateView):
-    model=Address
     form_class=AddressForm
     template_name='registration/update_create_address.html'
-    success_url=reverse_lazy('account:address')
+    
+    def get_success_url(self):
+        next_url=self.request.GET.get('next')
+        if next_url:
+            return reverse('orders:order_create')
+        else:
+            return reverse('account:address')
+            
     def get_object(self):
         return get_object_or_404(Address,pk=self.request.user.pk)
 

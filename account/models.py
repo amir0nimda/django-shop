@@ -8,7 +8,6 @@ from django.db.models.signals import post_save
 # Create your models here.
 
 class User(AbstractUser):
-    pass
     #check if any fields in address is empty
     def is_empty_field(self):
         for field in self.address._meta.fields:

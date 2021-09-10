@@ -83,7 +83,7 @@
         <div class="column">
 
             {% if request.user.is_authenticated and request.user.is_empty_field %}
-            <div class="column"><a class="btn btn-success" href="{% url 'orders:order_create'%}?next={{request.path}}">ادامه فرایند خرید</a></div>
+            <div class="column"><a class="btn btn-success" href="{% url 'orders:order_create'%}">ادامه فرایند خرید</a></div>
             {% elif not request.user.is_authenticated %}
             <div class="column"><a class="btn btn-success" href="{% url 'login'%}?next={{request.path}}">ورود به حساب کاربری</a></div>
             {% else %}

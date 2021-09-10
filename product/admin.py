@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category,Product,ImageProduct,Color
+from .models import Category,Product,ImageProduct,Color,IpAddress
 # Register your models here.
 
 
@@ -30,3 +30,5 @@ class ColorAdmin(admin.ModelAdmin):
     search_fields=['name']
 
 admin.site.register(Color,ColorAdmin)
+
+admin.site.register(IpAddress)

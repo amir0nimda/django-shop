@@ -54,6 +54,14 @@ class Color(models.Model):
     color_pic.short_description = 'رنگ'
 
 
+
+class IpAddress(models.Model):
+    ip=models.GenericIPAddressField()
+
+    def __str__(self):
+        return str(self.ip)
+
+
 class Product(models.Model):
     STATUS_CHOICE={
         ('p','انتشار'),
@@ -72,7 +80,8 @@ class Product(models.Model):
     updated=models.DateField(auto_now=True,verbose_name='زمان تغییر')
     status=models.CharField(max_length=1,choices=STATUS_CHOICE,verbose_name='وضعیت')
     exist=models.BooleanField(default=True,verbose_name='موجود بودن محصول') 
-    
+    visits=models.ManyToManyField(IpAddress,related_name='product',verbose_name='تعداد بازدید ها')
+
     def __str__(self):
         return self.title
         

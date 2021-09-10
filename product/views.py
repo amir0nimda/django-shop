@@ -20,6 +20,11 @@ class ProductDetail(DetailView):
         global slug
         slug=self.kwargs.get('slug')
         product=get_object_or_404(Product.objects.product_publish(),slug=slug)
+        ip_address=self.request.user.ip_address
+
+        if not ip_address in product.visits.all():
+            product.visits.add(ip_address)
+
         return product
 
     def get_context_data(self,**kwargs):

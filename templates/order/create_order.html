@@ -53,7 +53,7 @@
             {% endwith %}
             </div>
             <br>
-            <a href="{%url 'account:address_update' %}"><i class="fas fa-edit"> ویرایش اطلاعات  </i></a>
+            <a href="{%url 'account:address_update' %}?next={{request.path}}"><i class="fas fa-edit"> ویرایش اطلاعات  </i></a>
         </div>
     </div>
     <div class="col-3 py-5">
