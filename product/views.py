@@ -41,7 +41,7 @@ class SearchResult(ListView):
     paginate_by=5
     def get_queryset(self):
         query=self.request.GET.get('q',"None")
-        object_list=Product.objects.filter(Q(title__icontains=query) | Q(slug__icontains=query) | Q(spec__icontains=query))
+        object_list=Product.objects.filter(Q(title__icontains=query) | Q(spec__icontains=query))
         return object_list
 
 class CategoryList(ListView):
