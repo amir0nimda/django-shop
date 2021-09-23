@@ -9,7 +9,7 @@ from django.db.models.signals import post_save
 
 class User(AbstractUser):
     #check if any fields in address is empty
-    def is_empty_field(self):
+    def is_not_empty_field(self):
         for field in self.address._meta.fields:
             fname=field.name
             if not getattr(self.address,fname):

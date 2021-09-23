@@ -5,13 +5,17 @@ from account.models import User
 from django.urls import reverse
 from django.db.models import Q
 from django.utils.html import format_html
-
+from django.db.models import Count
 # Create your models here.
 
 
 class ProductManager(models.Manager):
     def product_publish(self):
         return self.filter(status='p')
+
+    def number_of_visits(self):
+        return self.annotate(count=Count('visits'))
+    
 
 class CategoryManager(models.Manager):
     def category_publish(self):
@@ -71,7 +75,7 @@ class Product(models.Model):
     title=models.CharField(max_length=100,verbose_name='عنوان')
     slug=models.SlugField(max_length=100,unique=True,verbose_name='ادرس محصول')
     category=models.ManyToManyField(Category,verbose_name='دسته ها',related_name='product')
-    color=models.ManyToManyField(Color,verbose_name='رنگ')
+    color=models.ManyToManyField(Color,verbose_name='رنگ',blank=True)
     spec=models.TextField(verbose_name='اطلاعات راجب محصول')
     description=models.TextField(verbose_name='توضیح درباره محصول', blank=True,null=True)
     price=models.FloatField(verbose_name='قیمت کالا')
@@ -80,7 +84,7 @@ class Product(models.Model):
     updated=models.DateField(auto_now=True,verbose_name='زمان تغییر')
     status=models.CharField(max_length=1,choices=STATUS_CHOICE,verbose_name='وضعیت')
     exist=models.BooleanField(default=True,verbose_name='موجود بودن محصول') 
-    visits=models.ManyToManyField(IpAddress,related_name='product',verbose_name='تعداد بازدید ها')
+    visits=models.ManyToManyField(IpAddress,related_name='product',verbose_name='تعداد بازدید ها',blank=True)
 
     def __str__(self):
         return self.title
@@ -92,7 +96,7 @@ class Product(models.Model):
     class Meta:
         verbose_name='محصول'
         verbose_name_plural='محصولات'
-        ordering=['-updated']
+        ordering=['-created']
     objects=ProductManager()
 
 

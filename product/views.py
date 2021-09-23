@@ -6,10 +6,14 @@ from cart.forms import CartAddProductFrom
 # Create your views here.
 
 class ListProduct(ListView):
-    queryset=Product.objects.product_publish()[:20]
+    queryset=Product.objects.product_publish()[:4]
     template_name='products/home.html'
     context_object_name='products'
 
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        context['most_visit_product']=Product.objects.number_of_visits().order_by('-count')[:4]
+        return context
          
 class ProductDetail(DetailView):
     template_name='products/detail.html' 
@@ -38,7 +42,7 @@ class SearchResult(ListView):
     template_name='products/search_result.html'
     context_object_name='products'
     model=Product
-    paginate_by=5
+    paginate_by=10
     def get_queryset(self):
         query=self.request.GET.get('q',"None")
         object_list=Product.objects.filter(Q(title__icontains=query) | Q(spec__icontains=query))
@@ -47,7 +51,7 @@ class SearchResult(ListView):
 class CategoryList(ListView):
     template_name='products/category_list.html'
     context_object_name='products'
-    paginate_by=5
+    paginate_by=2
     def get_queryset(self):
         slug=self.kwargs.get('slug')
         category=get_object_or_404(Category.objects.category_publish(),slug=slug)

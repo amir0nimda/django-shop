@@ -1,5 +1,12 @@
 <ul class="submenu dropdown-menu">
-    {% for child in item.children.all %}
-        <li><a class="dropdown-item" href="{% url 'product:category_list' child.slug  %}">{{child.title}}</a></li>
+    {% for item in item.children.all %}
+        <li>
+            <a class="dropdown-item" href="{% url 'product:category_list' item.slug  %}">
+                {{item.title}}
+            </a>
+            {% if item.children.all %}
+                {% include 'products/partials/navbar_nested.html' %}
+            {% endif %}    
+        </li>
     {% endfor %}
 </ul>

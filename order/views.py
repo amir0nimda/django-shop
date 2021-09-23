@@ -1,21 +1,9 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render,HttpResponse
 from cart.cart import Cart
 from .forms import OrderCreateForm
 from .models import OrderItem,Order
 from account.models import User
-import functools
-
-
-def premision_decorator(func):
-    functools.wraps(func)
-    def wrapper_order_login_required(request):
-        if request.user.is_authenticated and request.user.is_empty_field:
-            return func(request)
-        elif not request.user.is_authenticated: 
-            return redirect('login')
-        else:
-            return redirect('account:profile')
-    return wrapper_order_login_required
+from .decorator import premision_decorator
 
 
 @premision_decorator
@@ -64,3 +52,13 @@ def order_create(request):
             form_order=OrderCreateForm()      
         return render(request,'order/create_order.html',{"user":get_user,'form':form_order,"cart":cart})  
 
+
+
+def show_session(request):
+    if request.user.is_authenticated and request.user.is_not_empty_field()==True \
+        and request.session.get('cart'):
+        print('ok')
+    else:
+        print('not ok')
+    print(request.user.is_not_empty_field())
+    return HttpResponse("ok")

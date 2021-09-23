@@ -20,7 +20,7 @@ def cart_add(request, product_id):
             override_quantity=cd['override'],
             color=cd['color'],
             )
-        return redirect('cart:cart_detail')   
+        return redirect('cart:cart_detail')
 
     else:
         form = CartAddProductFrom()

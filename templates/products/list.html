@@ -1,25 +1,23 @@
 {% extends "base.html"%}
 {%block title%}{% endblock %}
 {% block content %}
-<div class="container-fluid mt-5 mb-5" style="text-align: right;direction:rtl;">
-  <div class="col-md-9 m-e">
+<div class="container mt-5 mb-5" style="text-align: right;direction:rtl;">
       <div class="row g-2">
-        {% for product in products %}
-          <div class="col-md-3">
-            <div class="product py-4">
-                <div class="text-center"> <img src="{{product.thumbnail.url}}" width="200"> </div>
-                <div class="about text-center">
-                    <a href="{{product.get_absolute_url}}"><h5>{{product.title|truncatewords:10}}</h5></a> <span>{{product.price}}تومان</span>
-                </div>
-            </div>
-        </div>
+        {% for product in products%}
+        <div class="col-md-5">
+          <div class="product py-4">
+              <div class="text-center"> <img src="{{product.thumbnail.url}}" width="200"> </div>
+              <div class="about text-center">
+                  <a href="{{product.get_absolute_url}}"><p>{{product.title}}</h5></a> <p>{{product.price}}تومان</span>
+              </div>
+          </div>
+      </div>
         {% empty %}
           <div class="text-center">
             <h2 style="color: rgb(172, 69, 69);padding-top:60px;margin-right:370px;padding-bottom:60px;">نتیجه ای یافت نشد</h2>
           </div>
       {% endfor %}
       </div>
-  </div>
 </div>
 </div>
 <!-- paginator !-->
@@ -27,7 +25,7 @@
 <div class="center">
   <div class="pagination">
     {% if page_obj.has_previous %}
-      <a href="{% block next_page_url %}{% endblock %}">&laquo;</a>
+      <a href="{% block previous_page_url %}{% endblock %}">&laquo;</a>
     {% else %}
       <a class="disable">&laquo;</a>
     {% endif %}
@@ -39,7 +37,7 @@
       {% endif%}
     {% endfor %}
     {% if page_obj.has_next %}
-        <a href="{% block previous_page_url %}{% endblock %}">&raquo;</a>
+        <a href="{% block next_page_url %}{% endblock %}">&raquo;</a>
     {% else %}
       <a class="disable">&raquo;</a>
     {% endif %}
@@ -48,4 +46,3 @@
 {% endif %}
 
 {% endblock %}
-

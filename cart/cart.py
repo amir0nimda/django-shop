@@ -25,6 +25,8 @@ class Cart(object):
             self.cart[product_id]['quantity']=quantity
         else:
             self.cart[product_id]['quantity'] += quantity
+            self.cart[product_id]['color']=color
+
         self.save()
 
     def save(self):

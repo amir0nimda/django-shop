@@ -39,12 +39,21 @@
                     <h3>{{product.price}}تومان</h3>
                     <form action="{% url 'cart:cart_add' product.id %}" method="POST">
                         {% csrf_token %}
-                                <label for="id_color">رنگ:</label> 
-                                <select class='form-select' name="color" id="id_color">
-                                {% for color in product.color.all %}
-                                    <option value="{{color}}">{{color}}</option>
-                                {%endfor %}                    
-                                </select>
+                            {% if product.color.exists %}
+                            <span>رنگ محصول:</span>
+                            <div class="colors">
+                                <ul>
+                                    {% for color in product.color.all %}
+                                    <li>
+                                        <label>
+                                          <input id='id_color' type="radio" name="color" value="{{color.name}}">
+                                          <span class="swatch" style="background-color:{{color.code}}"></span>
+                                        </label>
+                                    </li>
+                                    {% endfor %}
+                                </ul> 
+                              </div> 
+                            {% endif %}
                         <div class="mt-5">
                                 <label for="id_quantity">تعداد محصول:</label>
                                 {{ form.quantity |add_class:"form-select"}}
@@ -64,25 +73,20 @@
 
 
     <div class="container-fluid mt-5 mb-5" style="text-align: right;direction:rtl;">
-        <div class="col-md-9">
-            <div class="row g-2">
-              {% for product in related_products %}
-                {% if product.status == "p" or product.status == "f" %}
-                <div class="col-md-3">
-                  <div class="product py-4">
-                      <div class="text-center"> <img src="{{product.thumbnail.url}}" width="200"> </div>
-                      <div class="about text-center">
-                          <a href="{% url 'product:product_detail' product.slug%}"><h5>{{product.title|truncatewords:10}}</h5></a> <span>{{product.price}}تومان</span>
-                      </div>
-                  </div>
-              </div>
-              {% endif %}
-            {% endfor %}
-            </div>
-        </div>
-      </div>
-      </div>
-
+        {% if product.status == "p" or product.status == "f" %}
+            <div class="row g-2 p-5 ">
+                {% for product in related_products%}
+                    <div class="col-md-3 ">
+                        <div class="product py-4">
+                            <div class="text-center"> <img src="{{product.thumbnail.url}}" width="200"> </div>
+                            <div class="about text-center">
+                                <a href="{{product.get_absolute_url}}"><p>{{product.title}}</h5></a> <p>{{product.price}}تومان</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+        {% endif %}
+    </div>
 
         </div>
     </div>  

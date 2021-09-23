@@ -1,26 +1,41 @@
 {% extends "base.html"%}
 {%block title%}خانه{% endblock %}
 {% block content %}
-<div class="container-fluid mt-5 mb-5" style="text-align: right;direction:rtl;">
-  <div class="col-md-9 m-e">
-      <div class="row g-2">
-        {% for product in products%}
-          <div class="col-md-3">
+<div class="container mt-5 mb-5" style="text-align: right;direction:rtl;">
+  <div class="row g-2"> 
+    <p>جدید ترین محصولات</p>
+    {% for product in products%}
+          <div class="col-md-5">
             <div class="product py-4">
                 <div class="text-center"> <img src="{{product.thumbnail.url}}" width="200"> </div>
                 <div class="about text-center">
-                    <a href="{{product.get_absolute_url}}"><h5>{{product.title|truncatewords:10}}</h5></a> <span>{{product.price}}تومان</span>
+                    <a href="{{product.get_absolute_url}}"><p>{{product.title}}</h5></a> <p>{{product.price}}تومان</p>
+                    {% if product.exist %}
+                      <p class="text-success">محصول موجود است </p>
+                    {% else %}
+                      <p class="text-danger">درحال حاضر محصول موجود نیست</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        {% empty %}
-          <div class="text-center">
-            <h2 style="color: rgb(172, 69, 69);padding-top:60px;margin-right:370px;padding-bottom:60px;">نتیجه ای یافت نشد</h2>
+    {% endfor %}
+    <p>پربازدیدترین محصولات</p>
+    {% for product in most_visit_product %}
+    <div class="col-md-5">
+      <div class="product py-4">
+          <div class="text-center"> <img src="{{product.thumbnail.url}}" width="200"> </div>
+          <div class="about text-center">
+              <a href="{{product.get_absolute_url}}"><p>{{product.title}}</h5></a> <p>{{product.price}}تومان</p>
+              {% if product.exist %}
+                <p class="text-success">محصول موجود است </p>
+              {% else %}
+                <p class="text-danger">درحال حاضر محصول موجود نیست</p>
+            {% endif %}
           </div>
-      {% endfor %}
       </div>
   </div>
-</div>
+{% endfor %}
+  </div>
 </div>
 {% endblock %}
 

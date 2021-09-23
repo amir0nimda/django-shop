@@ -37,16 +37,19 @@
                     <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown"> دسته بندی </a>
                     <ul class="dropdown-menu">
                         {% for item in categorys  %}
-                            {% if item.parent == None and item.children %}
-                                <li><a class="dropdown-item" href="{% url 'product:category_list' item.slug  %}"> {{item.title}}</a>
-                                {% if item.children.all%}
-                                    {% include 'products/partials/navbar_nested.html'%}
-                                {% endif %}
+                            {% if item.parent == None%}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'product:category_list' item.slug  %}"> 
+                                        {{item.title}}
+                                    </a>
+                                    {% if item.children.all %}
+                                        {% include 'products/partials/navbar_nested.html'%}
+                                    {% endif %}
                                 </li>
                             {% endif %}
                         {% endfor %}
                     </ul>
-                  </li>
+                </li>
                <a href="{% url 'product:home'%}"><i class="fa-home fa text-white" aria-hidden="true" style="padding-right:10px; padding-left:18px;"></i></a>
             </div>
         </div>

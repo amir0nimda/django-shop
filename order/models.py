@@ -49,7 +49,7 @@ class OrderItem(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name="product_item",verbose_name='محصول')
     price=models.FloatField(verbose_name='قیمت')
     total_price=models.FloatField(verbose_name='قیمت کل',default=1)
-    color=models.CharField(max_length=50,verbose_name='رنگ',default='سفید')
+    color=models.CharField(max_length=50,verbose_name='رنگ',blank=True,null=True)
     quantity=models.IntegerField(default=1,verbose_name='تعداد')
 
     class Meta:
