@@ -9,7 +9,7 @@ Django-ecommerce built on the Django Web Framework.
 ### Installing
 
 * git clone https://github.com/amir0nimda/django-shop.git
-* sudo pip3 install virtualenv 
+* pip install virtualenv 
 * virtualenv .env
 * source env/bin/activate
 * pip install -r requirements.txt
