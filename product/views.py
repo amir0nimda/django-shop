@@ -3,6 +3,8 @@ from product.models import Product,Category
 from django.views.generic import ListView,DetailView
 from django.db.models import Q
 from cart.forms import CartAddProductFrom
+from django.contrib.sites.shortcuts import get_current_site
+
 # Create your views here.
 
 class ListProduct(ListView):
@@ -13,6 +15,8 @@ class ListProduct(ListView):
     def get_context_data(self,**kwargs):
         context=super().get_context_data(**kwargs)
         context['most_visit_product']=Product.objects.number_of_visits().order_by('-count')[:4]
+        site=get_current_site(self.request)
+        print(site.domain)
         return context
          
 class ProductDetail(DetailView):
